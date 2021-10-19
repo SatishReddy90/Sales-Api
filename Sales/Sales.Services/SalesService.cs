@@ -41,5 +41,38 @@ namespace Sales.Services
                 Data = _mapper.Map<List<SaleDetail>>(result.Item2),
             };
         }
+
+        public async Task<List<RegionResponse>> GetRegionsAsync()
+        {
+            var result = await this._salesRepository.GetRegionsAsync();
+            if ((result?.Any() ?? false))
+            {
+                return null;
+            }
+
+            return _mapper.Map<List<RegionResponse>>(result);
+        }
+
+        public async Task<List<CountryResponse>> GetCountriesAsync(string region)
+        {
+            var result = await this._salesRepository.GetCountriesAsync(region);
+            if ((result?.Any() ?? false))
+            {
+                return null;
+            }
+
+            return _mapper.Map<List<CountryResponse>>(result);
+        }
+
+        public async Task<List<ItemTypeResponse>> GetItemTypesAsync(string region, string country)
+        {
+            var result = await this._salesRepository.GetItemTypesAsync(region, country);
+            if ((result?.Any() ?? false))
+            {
+                return null;
+            }
+
+            return _mapper.Map<List<ItemTypeResponse>>(result);
+        }
     }
 }

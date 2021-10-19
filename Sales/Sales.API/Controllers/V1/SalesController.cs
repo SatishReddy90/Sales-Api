@@ -12,7 +12,7 @@ using S = Sales.Services.Model;
 
 namespace Sales.API.Controllers.V1
 {
-    //[Authorize]
+    [Authorize]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/sales")]
     [ApiController]
@@ -54,6 +54,69 @@ namespace Sales.API.Controllers.V1
             }
 
             return this.Ok(salesData);
+        }
+
+        /// <summary>
+        /// Gets the regions.
+        /// </summary>
+        /// <returns></returns>
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(RegionResponse))]
+        [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(RegionResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [HttpGet("getRegions")]
+        public async Task<IActionResult> GetRegions()
+        {
+            var result = await _service.GetRegionsAsync();
+            if (result == null)
+            {
+                return this.NoContent();
+            }
+
+            return this.Ok(result);
+        }
+
+        /// <summary>
+        /// Gets the countries.
+        /// </summary>
+        /// <param name="region">The region.</param>
+        /// <returns></returns>
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CountryResponse))]
+        [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(CountryResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [HttpGet("getCountries/{region}")]
+        public async Task<IActionResult> GetCountries(string region)
+        {
+            var result = await _service.GetCountriesAsync(region);
+            if (result == null)
+            {
+                return this.NoContent();
+            }
+
+            return this.Ok(result);
+        }
+
+        /// <summary>
+        /// Gets the item types.
+        /// </summary>
+        /// <param name="region">The region.</param>
+        /// <param name="country">The country.</param>
+        /// <returns></returns>
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ItemTypeResponse))]
+        [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(ItemTypeResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [HttpGet("getItemTypes/{region}/{country}")]
+        public async Task<IActionResult> GetItemTypes(string region, string country)
+        {
+            var result = await _service.GetItemTypesAsync(region, country);
+            if (result == null)
+            {
+                return this.NoContent();
+            }
+
+            return this.Ok(result);
         }
     }
 }
