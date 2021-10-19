@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Sales.Repositories.Contracts\Sales.Repositories.Contracts.csproj" />
+    <ProjectReference Include="..\Sales.API.Common\Sales.API.Common.csproj" />
+    <ProjectReference Include="..\Sales.Services.Contracts\Sales.Services.Contracts.csproj" />
+    <ProjectReference Include="..\Sales.Services.Model\Sales.Services.Model.csproj" />
+  </ItemGroup>
+
+</Project>
